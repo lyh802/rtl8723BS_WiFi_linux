@@ -2915,7 +2915,7 @@ odm_s0s1_sw_ant_div(
 #if (DM_ODM_SUPPORT_TYPE == ODM_WIN)
 void
 odm_sw_antdiv_callback(
-	struct timer_list		*p_timer
+	struct phydm_timer_list		*p_timer
 )
 {
 	struct _ADAPTER		*adapter = (struct _ADAPTER *)p_timer->Adapter;
