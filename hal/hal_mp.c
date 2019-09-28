@@ -946,6 +946,7 @@ void mpt_SetRFPath_8812A(PADAPTER pAdapter)
 	u8		bandwidth = pmp->bandwidth;
 	u8		eLNA_2g = pHalData->ExternalLNA_2G;
 	u32		ulAntennaTx, ulAntennaRx;
+	u32 reg0xC50 = 0;
 
 	ulAntennaTx = pHalData->antenna_tx_path;
 	ulAntennaRx = pHalData->AntennaRxPath;
@@ -976,7 +977,6 @@ void mpt_SetRFPath_8812A(PADAPTER pAdapter)
 	}
 
 	switch (ulAntennaRx) {
-		u32 reg0xC50 = 0;
 	case ANTENNA_A:
 		phy_set_bb_reg(pAdapter, rRxPath_Jaguar, bMaskByte0, 0x11);
 		phy_set_rf_reg(pAdapter, RF_PATH_B, RF_AC_Jaguar, 0xF0000, 0x1); /*/ RF_B_0x0[19:16] = 1, Standby mode*/
@@ -1063,6 +1063,7 @@ void mpt_SetRFPath_8723B(PADAPTER pAdapter)
 	PMPT_CONTEXT	pMptCtx = &(pAdapter->mppriv.mpt_ctx);
 	struct PHY_DM_STRUCT	*pDM_Odm = &pHalData->odmpriv;
 	struct odm_rf_calibration_structure	*pRFCalibrateInfo = &(pDM_Odm->rf_calibrate_info);
+	u8 i = 0;
 
 	ulAntennaTx = pHalData->antenna_tx_path;
 	ulAntennaRx = pHalData->AntennaRxPath;
@@ -1073,7 +1074,6 @@ void mpt_SetRFPath_8723B(PADAPTER pAdapter)
 	}
 
 	switch (pAdapter->mppriv.antenna_tx) {
-		u8 p = 0, i = 0;
 	case ANTENNA_A: { /*/ Actually path S1  (Wi-Fi)*/
 		pMptCtx->mpt_rf_path = RF_PATH_A;
 		phy_set_bb_reg(pAdapter, rS0S1_PathSwitch, BIT9 | BIT8 | BIT7, 0x0);
@@ -1142,6 +1142,7 @@ void mpt_SetRFPath_8703B(PADAPTER pAdapter)
 	PMPT_CONTEXT		pMptCtx = &(pAdapter->mppriv.mpt_ctx);
 	struct PHY_DM_STRUCT		*pDM_Odm = &pHalData->odmpriv;
 	struct odm_rf_calibration_structure			*pRFCalibrateInfo = &(pDM_Odm->rf_calibrate_info);
+	u1Byte i = 0;
 
 	ulAntennaTx = pHalData->antenna_tx_path;
 	ulAntennaRx = pHalData->AntennaRxPath;
@@ -1152,8 +1153,6 @@ void mpt_SetRFPath_8703B(PADAPTER pAdapter)
 	}
 
 	switch (pAdapter->mppriv.antenna_tx) {
-		u1Byte p = 0, i = 0;
-
 	case ANTENNA_A: { /* Actually path S1  (Wi-Fi) */
 		pMptCtx->mpt_rf_path = RF_PATH_A;
 		phy_set_bb_reg(pAdapter, rS0S1_PathSwitch, BIT9 | BIT8 | BIT7, 0x0);
